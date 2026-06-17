@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREEN-API / Техподдержка 2 линии</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f4f7fc;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+        .card {
+            max-width: 960px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -12px rgba(0,20,40,0.25);
+            padding: 32px 36px;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #0b1b33;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        h1 small {
+            font-size: 14px;
+            font-weight: 400;
+            color: #4a6a8b;
+            margin-left: 6px;
+        }
+        .subhead {
+            color: #2c405c;
+            font-size: 15px;
+            border-left: 4px solid #1e88e5;
+            padding-left: 16px;
+            margin-bottom: 28px;
+            background: #f0f6fe;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.5;
+            padding: 12px 18px;
+        }
+        .grid-params {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 30px;
+            background: #f8faff;
+            padding: 20px 24px;
+            border-radius: 24px;
+            margin-bottom: 28px;
+            border: 1px solid #e6edf6;
+        }
+        .param-group {
+            flex: 1 0 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .param-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1f3a5f;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .param-group input {
+            background: white;
+            border: 1px solid #d9e2ef;
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #0c1e36;
+            transition: 0.2s;
+            outline: none;
+            width: 100%;
+        }
+        .param-group input:focus {
+            border-color: #1e88e5;
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15);
+        }
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px 16px;
+            margin-bottom: 28px;
+        }
+        .btn {
+            background: white;
+            border: 1px solid #d0ddee;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a3455;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fafcff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .btn-primary {
+            background: #1a73e8;
+            border: 1px solid #1a73e8;
+            color: white;
+            box-shadow: 0 4px 8px rgba(26, 115, 232, 0.2);
+        }
+        .btn-primary:hover {
+            background: #1557b0;
+            border-color: #1557b0;
+            transform: scale(1.01);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #b7c9e0;
+        }
+        .btn-outline:hover {
+            background: #eef4fc;
+            border-color: #8da9cc;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .response-area {
+            background: #f2f6fe;
+            border-radius: 24px;
+            padding: 8px 6px 6px 6px;
+            border: 1px solid #dfe9f5;
+            margin-top: 12px;
+        }
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 16px 4px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1f3a5f;
+            letter-spacing: 0.3px;
+        }
+        .response-header span:last-child {
+            font-weight: 400;
+            color: #3b5e84;
+            font-size: 12px;
+        }
+        textarea {
+            width: 100%;
+            background: #ffffff;
+            border: none;
+            border-radius: 20px;
+            padding: 18px 22px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            color: #0a1d3b;
+            resize: vertical;
+            min-height: 140px;
+            line-height: 1.6;
+            border: 1px solid transparent;
+            transition: 0.2s;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #90b8f0;
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.08);
+        }
+        .footer-note {
+            margin-top: 22px;
+            font-size: 13px;
+            color: #4f6f92;
+            border-top: 1px solid #e2ebf6;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+        .status-dot.success { background: #2b8c5e; }
+        .status-dot.pending { background: #f1b24a; }
+        .status-dot.error { background: #d13f4f; }
+        @media (max-width: 600px) {
+            .card { padding: 20px; }
+            .grid-params { flex-direction: column; gap: 14px; }
+            .action-bar { flex-direction: column; align-items: stretch; }
+            .btn-group { justify-content: stretch; }
+            .btn { justify-content: center; }
+        }
+        .debug-info {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #856404;
+            display: none;
+        }
+        .debug-info.show {
+            display: block;
+        }
+        .phone-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        📡 GREEN-API
+        <small>2-ая линия поддержки</small>
+    </h1>
+    <div class="subhead">
+        ⚙️ Инстанс: <strong>idInstance</strong> и <strong>ApiTokenInstance</strong> — 
+        введите данные из личного кабинета GREEN-API
+    </div>
+
+    <div class="grid-params">
+        <div class="param-group">
+            <label for="idInstance">idInstance</label>
+            <input type="text" id="idInstance" placeholder="Например: 1101234567" value="">
+        </div>
+        <div class="param-group">
+            <label for="apiToken">ApiTokenInstance</label>
+            <input type="text" id="apiToken" placeholder="Например: abc123xyz..." value="">
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <div class="btn-group">
+            <button class="btn btn-primary" id="getSettingsBtn">⚙️ getSettings</button>
+            <button class="btn btn-primary" id="getStateBtn">📊 getStateInstance</button>
+            <button class="btn btn-primary" id="sendMessageBtn">✉️ sendMessage</button>
+            <button class="btn btn-primary" id="sendFileBtn">📎 sendFileByUrl</button>
+        </div>
+        <button class="btn btn-outline" id="clearBtn">🧹 Очистить ответ</button>
+    </div>
+
+    <div class="response-area">
+        <div class="response-header">
+            <span>📋 Ответ метода</span>
+            <span id="methodLabel">готов к работе</span>
+        </div>
+        <textarea id="responseOutput" readonly placeholder="Ответ API будет отображён здесь..."></textarea>
+    </div>
+
+    <div class="debug-info" id="debugInfo">
+        <strong>🔍 Отладка:</strong> <span id="debugText"></span>
+    </div>
+
+    <div class="footer-note">
+        <span>🔐 Данные не сохраняются, только для тестирования GREEN-API</span>
+        <span>
+            <span class="status-dot success"></span> 
+            <span id="statusText">готов</span>
+        </span>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const idInstanceInput = document.getElementById('idInstance');
+        const apiTokenInput = document.getElementById('apiToken');
+        const responseOutput = document.getElementById('responseOutput');
+        const methodLabel = document.getElementById('methodLabel');
+        const statusText = document.getElementById('statusText');
+        const debugInfo = document.getElementById('debugInfo');
+        const debugText = document.getElementById('debugText');
+
+        const getSettingsBtn = document.getElementById('getSettingsBtn');
+        const getStateBtn = document.getElementById('getStateBtn');
+        const sendMessageBtn = document.getElementById('sendMessageBtn');
+        const sendFileBtn = document.getElementById('sendFileBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        function showDebug(message) {
+            debugInfo.classList.add('show');
+            debugText.textContent = message;
+            console.log('DEBUG:', message);
+        }
+
+        function hideDebug() {
+            debugInfo.classList.remove('show');
+        }
+
+        function getParams() {
+            const idInstance = idInstanceInput.value.trim();
+            const apiToken = apiTokenInput.value.trim();
+            if (!idInstance || !apiToken) {
+                alert('⚠️ Пожалуйста, заполните idInstance и ApiTokenInstance');
+                return null;
+            }
+            return { idInstance, apiToken };
+        }
+
+        function setResponse(data, methodName = '') {
+            try {
+                if (typeof data === 'object') {
+                    responseOutput.value = JSON.stringify(data, null, 2);
+                } else {
+                    responseOutput.value = String(data);
+                }
+            } catch (e) {
+                responseOutput.value = '[Ошибка форматирования] ' + String(data);
+            }
+            if (methodName) {
+                methodLabel.textContent = methodName + ' ✅';
+            }
+            statusText.textContent = 'ответ получен';
+            statusText.className = 'status-dot success';
+            hideDebug();
+        }
+
+        function setError(error, methodName = '') {
+            const msg = error?.message || String(error) || 'Неизвестная ошибка';
+            responseOutput.value = `❌ Ошибка: ${msg}`;
+            if (methodName) methodLabel.textContent = methodName + ' ❌';
+            statusText.textContent = 'ошибка';
+            statusText.className = 'status-dot error';
+            showDebug(`Ошибка: ${msg}`);
+        }
+
+        function formatPhoneNumber(phone) {
+            // Убираем все нецифровые символы
+            let cleaned = phone.replace(/\D/g, '');
+            
+            // Если номер начинается с 8, заменяем на 7
+            if (cleaned.startsWith('8')) {
+                cleaned = '7' + cleaned.substring(1);
+            }
+            
+            // Если номер начинается с 7 и длина 11 цифр - это правильный формат
+            if (cleaned.startsWith('7') && cleaned.length === 11) {
+                return cleaned;
+            }
+            
+            // Если номер не начинается с 7, но длина 10 цифр (без кода страны)
+            if (cleaned.length === 10) {
+                return '7' + cleaned;
+            }
+            
+            // Если номер не подходит под стандартные форматы, возвращаем как есть
+            return cleaned;
+        }
+
+        async function callGreenApi(method, payload = null, methodName = '') {
+            const params = getParams();
+            if (!params) return;
+
+            const { idInstance, apiToken } = params;
+            const baseUrl = `https://api.green-api.com/waInstance${idInstance}`;
+            
+            let url = '';
+            let options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+
+            if (method === 'getSettings') {
+                url = `${baseUrl}/getSettings/${apiToken}`;
+                options.method = 'GET';
+            } else if (method === 'getStateInstance') {
+                url = `${baseUrl}/getStateInstance/${apiToken}`;
+                options.method = 'GET';
+            } else if (method === 'sendMessage') {
+                url = `${baseUrl}/sendMessage/${apiToken}`;
+                options.method = 'POST';
+                options.body = JSON.stringify(payload);
+            } else if (method === 'sendFileByUrl') {
+                url = `${baseUrl}/sendFileByUrl/${apiToken}`;
+                options.method = 'POST';
+                options.body = JSON.stringify(payload);
+            } else {
+                throw new Error('Неизвестный метод');
+            }
+
+            showDebug(`Отправка запроса: ${method} → ${url}`);
+            if (payload) {
+                showDebug(`Payload: ${JSON.stringify(payload)}`);
+            }
+
+            try {
+                const response = await fetch(url, options);
+                showDebug(`Статус ответа: ${response.status} ${response.statusText}`);
+
+                let data;
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    data = await response.json();
+                    showDebug(`Получен JSON: ${JSON.stringify(data).substring(0, 300)}...`);
+                } else {
+                    data = await response.text();
+                    showDebug(`Получен текст: ${data.substring(0, 300)}...`);
+                }
+
+                if (!response.ok) {
+                    const errorMsg = data?.message || data?.error || data || `HTTP ${response.status}`;
+                    throw new Error(errorMsg);
+                }
+                
+                setResponse(data, methodName);
+                return data;
+            } catch (error) {
+                setError(error, methodName);
+                throw error;
+            }
+        }
+
+        // Обработчики методов
+        getSettingsBtn.addEventListener('click', async function() {
+            methodLabel.textContent = '⏳ getSettings...';
+            statusText.textContent = 'запрос...';
+            statusText.className = 'status-dot pending';
+            try {
+                await callGreenApi('getSettings', null, 'getSettings');
+            } catch (e) {
+                // ошибка уже установлена
+            }
+        });
+
+        getStateBtn.addEventListener('click', async function() {
+            methodLabel.textContent = '⏳ getStateInstance...';
+            statusText.textContent = 'запрос...';
+            statusText.className = 'status-dot pending';
+            try {
+                await callGreenApi('getStateInstance', null, 'getStateInstance');
+            } catch (e) { /* handled */ }
+        });
+
+        sendMessageBtn.addEventListener('click', async function() {
+            const params = getParams();
+            if (!params) return;
+
+            const chatIdInput = prompt('📞 Введите номер получателя (только цифры, без +):\nНапример: 77001234567');
+            if (chatIdInput === null) return;
+            
+            const message = prompt('💬 Введите текст сообщения:');
+            if (message === null) return;
+
+            if (!chatIdInput.trim() || !message.trim()) {
+                alert('Номер и сообщение не могут быть пустыми');
+                return;
+            }
+
+            // Форматируем номер телефона
+            let formattedPhone = formatPhoneNumber(chatIdInput.trim());
+            
+            // Добавляем @c.us если его нет
+            let chatId = formattedPhone;
+            if (!chatId.includes('@')) {
+                chatId = chatId + '@c.us';
+            }
+
+            showDebug(`Исходный номер: ${chatIdInput}, отформатированный: ${formattedPhone}, chatId: ${chatId}`);
+
+            const payload = {
+                chatId: chatId,
+                message: message.trim()
+            };
+
+            methodLabel.textContent = '⏳ sendMessage...';
+            statusText.textContent = 'отправка...';
+            statusText.className = 'status-dot pending';
+            try {
+                await callGreenApi('sendMessage', payload, 'sendMessage');
+            } catch (e) { /* handled */ }
+        });
+
+        sendFileBtn.addEventListener('click', async function() {
+            const params = getParams();
+            if (!params) return;
+
+            const chatIdInput = prompt('📞 Введите номер получателя (только цифры, без +):\nНапример: 77001234567');
+            if (chatIdInput === null) return;
+            
+            const urlFile = prompt('🔗 Введите URL файла (например: https://example.com/file.pdf):');
+            if (urlFile === null) return;
+            
+            const fileName = prompt('📄 Введите имя файла (например: document.pdf):');
+            if (fileName === null) return;
+
+            if (!chatIdInput.trim() || !urlFile.trim() || !fileName.trim()) {
+                alert('Все поля должны быть заполнены');
+                return;
+            }
+
+            // Форматируем номер телефона
+            let formattedPhone = formatPhoneNumber(chatIdInput.trim());
+            let chatId = formattedPhone;
+            if (!chatId.includes('@')) {
+                chatId = chatId + '@c.us';
+            }
+
+            showDebug(`Исходный номер: ${chatIdInput}, отформатированный: ${formattedPhone}, chatId: ${chatId}`);
+
+            const payload = {
+                chatId: chatId,
+                urlFile: urlFile.trim(),
+                fileName: fileName.trim()
+            };
+
+            methodLabel.textContent = '⏳ sendFileByUrl...';
+            statusText.textContent = 'отправка файла...';
+            statusText.className = 'status-dot pending';
+            try {
+                await callGreenApi('sendFileByUrl', payload, 'sendFileByUrl');
+            } catch (e) { /* handled */ }
+        });
+
+        clearBtn.addEventListener('click', function() {
+            responseOutput.value = '';
+            methodLabel.textContent = 'очищено';
+            statusText.textContent = 'готов';
+            statusText.className = 'status-dot success';
+            hideDebug();
+        });
+
+        // Инициализация
+        statusText.textContent = 'готов';
+        methodLabel.textContent = 'ожидание действия';
+        responseOutput.value = '// Введите параметры и нажмите кнопку метода';
+    })();
+</script>
+</body>
+</html>
